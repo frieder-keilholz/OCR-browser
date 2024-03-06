@@ -27,8 +27,8 @@ async function startOCR(language){
 }
 
 function stopOCR(){
-    video.srcObject.getVideoTracks().forEach(track => track.stop());
-    tworker.terminate();
+    //video.srcObject.getVideoTracks().forEach(track => track.stop());
+    //tworker.terminate();
 }
 
 // Capture image from video stream
@@ -72,7 +72,7 @@ function nameByLLM(url, data) {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({"model": "llama2:latest", "prompt": prompt_text})
+        body: JSON.stringify({"model": "codellama:instruct", "prompt": prompt_text})
     })
     .then(response => response.text())
     .then(result => {
@@ -92,10 +92,10 @@ function nameByLLM(url, data) {
         }
         console.log(resultString);
         let full_name = resultString.split("\n\n")[1]
-        console.info(full_name)
+        console.info(full_name);
+        alert(full_name);
         document.getElementById('full-name').value = full_name;
         captureBtn.disabled = false;
-
     })
     .catch(error => {
         // Handle any errors that occur during the request
