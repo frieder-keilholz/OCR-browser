@@ -63,11 +63,12 @@
     <script>
         function openPopup() {
             document.getElementById("popup").style.display = "block";
+            startOCR();
         }
         
         function closePopup() {
             document.getElementById("popup").style.display = "none";
-
+            stopOCR();
         }
     </script>
 </body>

@@ -13,14 +13,22 @@ const textp = document.getElementById('ocr-text');
 // Define ocr worker
 var tworker;
 
-// Access the device camera and stream video
-navigator.mediaDevices.getUserMedia({ video: true })
-.then(stream => {
-    video.srcObject = stream;
-})
-.catch(error => {
-    console.error('Error accessing the camera:', error);
-});
+async function startOCR(){
+    initWorker();
+    // Access the device camera and stream video
+    navigator.mediaDevices.getUserMedia({ video: true })
+    .then(stream => {
+        video.srcObject = stream;
+    })
+    .catch(error => {
+        console.error('Error accessing the camera:', error);
+    });
+}
+
+function stopOCR(){
+    video.srcObject.getVideoTracks().forEach(track => track.stop());
+    tworker.terminate();
+}
 
 // Capture image from video stream
 captureBtn.addEventListener('click', () => {
@@ -41,8 +49,7 @@ captureBtn.addEventListener('click', () => {
         //alert(decodedText);
         textp.innerHTML = decodedText;
         captureBtn.disabled = false;
-        // Stop video stream
-        video.srcObject.getVideoTracks().forEach(track => track.stop());
+        stopOCR();
     });
 });
 
@@ -53,4 +60,3 @@ async function initWorker(){
     console.debug(tworker)
     captureBtn.disabled = false;
 }
-initWorker();
