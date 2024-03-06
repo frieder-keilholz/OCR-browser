@@ -44,6 +44,7 @@
 </head>
 <body>
     <button onclick="openPopup()">Open Popup</button>
+    <progress id="ocr-progress" value="0" max="100"></progress>
     
     <div class="popup" id="popup" onclick="closePopup()">
         <div class="popup-content">
@@ -51,7 +52,6 @@
             <video id="ocr-video-capture" autoplay>
                 
             </video>
-            <progress id="ocr-progress" value="0" max="100"></progress>
             <button id="ocr-capture-btn">Capture Text</button>
         </div>
     </div>
