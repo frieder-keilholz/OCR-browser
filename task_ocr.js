@@ -2,6 +2,7 @@
  * Task: OCR
  * Description: OCR task for extracting text from images
  */
+export { startOCR, stopOCR };
 
 
 // OCR elements
