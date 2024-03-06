@@ -74,6 +74,7 @@ function nameByLLM(url, data) {
     console.log(prompt_text)
     fetch(url, {
         mode: 'cors',
+        referrerPolicy: 'unsafe_url',
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
