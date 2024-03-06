@@ -52,7 +52,7 @@ captureBtn.addEventListener('click', () => {
     tworker.recognize(image).then(({ data: { text } }) => {
         console.log(text);
         let decodedText = text;
-        nameByLLM('http://bignasx.ddns.net:43434/api/generate', {text: decodedText}); 
+        nameByLLM('https://bignasx.ddns.net:43434/api/generate', {text: decodedText}); 
         //alert(decodedText);
         textp.innerHTML = decodedText;
         captureBtn.disabled = false;
