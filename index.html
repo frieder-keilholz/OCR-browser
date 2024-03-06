@@ -43,8 +43,9 @@
     </style>
 </head>
 <body>
+    <input type="text" id="targetInput">
     <button onclick="openPopup()">Open Popup</button>
-    <progress id="ocr-progress" value="0" max="100"></progress>
+    <progress id="ocr-progress" value="0" max="100" style="display: none;"></progress>
     
     <div class="popup" id="popup" onclick="closePopup()">
         <div class="popup-content">
@@ -58,12 +59,12 @@
     <canvas id="ocr-canvas" width="640" height="480" style="display: none;"></canvas>
 
     <br>
-    <textarea type="text" id="ocr-text"></textarea>
+    <textarea type="text" id="ocr-text" style="width: 40%; height: 400px;"></textarea>
 
     <script>
         function openPopup() {
             document.getElementById("popup").style.display = "block";
-            startOCR();
+            startOCR(document.getElementById("targetInput"));
         }
         
         function closePopup() {

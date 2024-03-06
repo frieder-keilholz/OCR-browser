@@ -9,11 +9,14 @@ const canvas = document.getElementById('ocr-canvas');
 const captureBtn = document.getElementById('ocr-capture-btn');
 const progress = document.getElementById('ocr-progress');
 const textp = document.getElementById('ocr-text');
+
 // Define ocr worker
 var tworker;
 var languageOCR = "deu";
+var targetInput;
 
-async function startOCR(language){
+async function startOCR(input, language){
+    if(input) targetInput = input;
     if(language) languageOCR = language;
     initWorker();
     // Access the device camera and stream video
@@ -43,6 +46,9 @@ captureBtn.addEventListener('click', () => {
     console.debug('Captured image:', image);
     // A worker is created once and used every time a user uploads a new file.  
 
+    progress.style.display = "inline";
+    targetInput.disabled = true;
+
     tworker.recognize(image).then(({ data: { text } }) => {
         console.log(text);
         let decodedText = text;
@@ -64,7 +70,7 @@ async function initWorker(){
 
 function nameByLLM(url, data) {
     console.log({"data": data, "url": url})
-    let prompt_text = "in the follwing text decoded by OCR there is a name in the address. you need to find the full name ONLY: "+ data.text
+    let prompt_text = "in the follwing text decoded by OCR there is a name in the address. you need to find the full name ONLY (without form of address) and put it in quotes: "+ data.text
     console.log(prompt_text)
     fetch(url, {
         mode: 'cors',
@@ -87,15 +93,16 @@ function nameByLLM(url, data) {
 
         // build the result string
         let resultString = "";
-        for (let i = 0; i < jsonObjects.length; i++) {
-            resultString += jsonObjects[i].response ;
-        }
+        for (let i = 0; i < jsonObjects.length; i++) resultString += jsonObjects[i].response ;
+        
         console.log(resultString);
-        let full_name = resultString.split("\n\n")[1]
+        let full_name = resultString.split('"')[1]
         console.info(full_name);
-        alert(full_name);
-        document.getElementById('full-name').value = full_name;
+        //document.getElementById('full-name').value = full_name;
+        targetInput.disabled = false;
+        targetInput.value = full_name;
         captureBtn.disabled = false;
+        progress.style.display = "none";
     })
     .catch(error => {
         // Handle any errors that occur during the request
