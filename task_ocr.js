@@ -40,6 +40,9 @@ captureBtn.addEventListener('click', () => {
         //postData('http://192.168.178.149:11434/api/generate', {text: decodedText}); 
         //alert(decodedText);
         textp.innerHTML = decodedText;
+        captureBtn.disabled = false;
+        // Stop video stream
+        video.srcObject.getVideoTracks().forEach(track => track.stop());
     });
 });
 
