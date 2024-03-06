@@ -76,7 +76,9 @@ function nameByLLM(url, data) {
         //mode: 'no-cors',
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin':'*',
+            'Access-Control-Allow-Methods':'POST,PATCH,OPTIONS'
         },
         body: JSON.stringify({"model": "codellama:instruct", "prompt": prompt_text})
     })
