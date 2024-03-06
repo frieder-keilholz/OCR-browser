@@ -73,7 +73,7 @@ function nameByLLM(url, data) {
     let prompt_text = "in the follwing text decoded by OCR there is a name in the address. you need to find the full name ONLY (without form of address) and put it in quotes: "+ data.text
     console.log(prompt_text)
     fetch(url, {
-        mode: 'no-cors',
+        //mode: 'no-cors',
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
